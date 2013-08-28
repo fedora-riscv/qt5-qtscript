@@ -3,13 +3,13 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.0.2
-Release: 2%{?dist}
+Version: 5.1.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url: http://qt-project.org/
-Source0: http://download.qt-project.org/archive/qt/5.0/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt-project.org/official_releases/qt/5.1/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 
@@ -69,6 +69,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Aug 28 2013 Rex Dieter <rdieter@fedoraproject.org> 5.1.1-1
+- 5.1.1
+
 * Wed Aug 28 2013 Rex Dieter <rdieter@fedoraproject.org> 5.0.2-2
 - update Source URL
 - %%doc LGPL_EXCEPTION.txt LICENSE.GPL LICENSE.LGPL
