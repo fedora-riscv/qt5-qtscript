@@ -11,6 +11,9 @@ License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url: http://qt-project.org/
 Source0: http://download.qt-project.org/official_releases/qt/5.1/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
+# http://bugzilla.redhat.com/1005482
+ExcludeArch: ppc64 ppc
+
 BuildRequires: qt5-qtbase-devel >= %{version}
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
