@@ -9,7 +9,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
-Release: 0.1.%{pre}%{?dist}
+Release: 0.2.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -19,9 +19,6 @@ Source0: http://download.qt-project.org/development_releases/qt/5.2/%{version}-%
 %else
 Source0: http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 %endif
-
-# http://bugzilla.redhat.com/1005482
-ExcludeArch: ppc64 ppc
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 
@@ -106,6 +103,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Oct 16 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-0.2.alpha
+- bootstrap ppc
+
 * Tue Oct 01 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-0.1.alpha
 - 5.2.0-alpha
 - -doc subpkg
