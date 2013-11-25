@@ -19,6 +19,8 @@ Source0: http://download.qt-project.org/development_releases/qt/5.2/%{version}-%
 %else
 Source0: http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 %endif
+# add s390(x0 support to Platform.h (taken from webkit)
+Patch0:  qtscript-opensource-src-5.2.0-alpha-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 
@@ -48,6 +50,7 @@ BuildArch: noarch
 
 %prep
 %setup -q -n %{qt_module}-opensource-src-%{version}%{?pre:-%{pre}}
+%patch0 -p1 -b .s390
 
 
 %build
