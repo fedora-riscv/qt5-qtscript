@@ -1,6 +1,6 @@
-diff -up qtscript-opensource-src-5.2.0-alpha/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h.s390 qtscript-opensource-src-5.2.0-alpha/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h
---- qtscript-opensource-src-5.2.0-alpha/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h.s390	2013-11-25 10:57:19.094713069 -0500
-+++ qtscript-opensource-src-5.2.0-alpha/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h	2013-11-25 11:02:20.624715931 -0500
+diff -up qtscript-opensource-src-5.2.0-rc1/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h.s390 qtscript-opensource-src-5.2.0-rc1/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h
+--- qtscript-opensource-src-5.2.0-rc1/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h.s390	2013-11-26 19:00:28.000000000 -0600
++++ qtscript-opensource-src-5.2.0-rc1/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h	2013-12-02 13:43:02.144456614 -0600
 @@ -189,6 +189,18 @@
  #define WTF_CPU_SPARC 1
  #endif
@@ -20,9 +20,9 @@ diff -up qtscript-opensource-src-5.2.0-alpha/src/3rdparty/javascriptcore/JavaScr
  /* CPU(X86) - i386 / x86 32-bit */
  #if   defined(__i386__) \
      || defined(i386)     \
-@@ -878,7 +890,7 @@
+@@ -898,7 +910,7 @@
  #if !defined(WTF_USE_JSVALUE64) && !defined(WTF_USE_JSVALUE32) && !defined(WTF_USE_JSVALUE32_64)
- #if (CPU(X86_64) && (OS(UNIX) || OS(WINDOWS) || OS(SOLARIS) || OS(HPUX))) || (CPU(IA64) && !CPU(IA64_32)) || CPU(ALPHA) || CPU(AIX64) || CPU(SPARC64)
+ #if (CPU(X86_64) && (OS(UNIX) || OS(WINDOWS) || OS(SOLARIS) || OS(HPUX))) || (CPU(IA64) && !CPU(IA64_32)) || CPU(ALPHA) || CPU(AIX64) || CPU(SPARC64) || CPU(MIPS64)
  #define WTF_USE_JSVALUE64 1
 -#elif CPU(ARM) || CPU(PPC64)
 +#elif CPU(ARM) || CPU(PPC64) || CPU(S390X)

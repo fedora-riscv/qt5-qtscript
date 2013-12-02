@@ -1,6 +1,6 @@
 
 %global qt_module qtscript
-%define pre beta1
+%define pre rc1
 
 # define to build docs, need to undef this for bootstrapping
 # where qt5-qttools builds are not yet available
@@ -12,7 +12,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
-Release: 0.5.%{pre}%{?dist}
+Release: 0.10.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -22,8 +22,9 @@ Source0: http://download.qt-project.org/development_releases/qt/5.2/%{version}-%
 %else
 Source0: http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 %endif
+
 # add s390(x0 support to Platform.h (taken from webkit)
-Patch0:  qtscript-opensource-src-5.2.0-alpha-s390.patch
+Patch0: qtscript-opensource-src-5.2.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 
@@ -109,6 +110,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Mon Dec 02 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-0.10.rc1
+- 5.2.0-rc1
+
 * Mon Nov 25 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-0.5.beta1
 - enable -doc only on primary archs (allow secondary bootstrap)
 
