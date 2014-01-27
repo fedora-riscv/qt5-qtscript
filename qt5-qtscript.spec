@@ -3,10 +3,7 @@
 
 # define to build docs, need to undef this for bootstrapping
 # where qt5-qttools builds are not yet available
-# only primary archs (for now), allow secondary to bootstrap
-%ifarch %{arm} %{ix86} x86_64
 %define docs 1
-%endif
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
@@ -50,11 +47,14 @@ BuildArch: noarch
 %{summary}.
 %endif
 
+%if 0%{?docs} && 0%{?_qt5_examplesdir}
 %package examples
 Summary: Programming examples for %{name}
+BuildRequires: pkgconfig(Qt5UiTools)
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description examples
 %{summary}.
+%endif
 
 
 %prep
@@ -122,6 +122,7 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %changelog
 * Mon Jan 27 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-2
 - -examples subpkg
+- -doc for all archs
 
 * Thu Dec 12 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-1
 - 5.2.0
