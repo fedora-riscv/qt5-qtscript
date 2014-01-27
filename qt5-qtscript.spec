@@ -47,7 +47,7 @@ BuildArch: noarch
 %{summary}.
 %endif
 
-%if 0%{?docs} && 0%{?_qt5_examplesdir}
+%if 0%{?docs} && 0%{?_qt5_examplesdir:1}
 %package examples
 Summary: Programming examples for %{name}
 BuildRequires: pkgconfig(Qt5UiTools)
@@ -113,7 +113,7 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtscripttools/
 %endif
 
-%if 0%{?_qt5_examplesdir:1}
+%if 0%{?docs} && 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
 %endif
