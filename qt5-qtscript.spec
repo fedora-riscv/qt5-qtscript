@@ -1,10 +1,6 @@
 
 %global qt_module qtscript
 
-# define to build docs, need to undef this for bootstrapping
-# where qt5-qttools builds are not yet available
-%define docs 1
-
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
@@ -23,6 +19,11 @@ Source0: http://download.qt-project.org/official_releases/qt/5.2/%{version}/subm
 Patch0: qtscript-opensource-src-5.2.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
+# -docs, for qhelpgenerator
+BuildRequires: qt5-qttools-devel
+%if 0%{?_qt5_examplesdir:1}
+BuildRequires: pkgconfig(Qt5UiTools)
+%endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -36,25 +37,18 @@ Requires: qt5-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
-%if 0%{?docs}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
-# for qhelpgenerator
-BuildRequires: qt5-qttools-devel
 BuildArch: noarch
 %description doc
 %{summary}.
-%endif
 
-%if 0%{?docs} && 0%{?_qt5_examplesdir:1}
 %package examples
 Summary: Programming examples for %{name}
-BuildRequires: pkgconfig(Qt5UiTools)
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description examples
 %{summary}.
-%endif
 
 
 %prep
@@ -65,17 +59,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %build
 %{_qt5_qmake}
 
-%if 0%{?docs}
 make %{?_smp_mflags} docs
-%endif
 
 
 %install
 make install INSTALL_ROOT=%{buildroot}
 
-%if 0%{?docs}
 make install_docs INSTALL_ROOT=%{buildroot}
-%endif
 
 ## .prl file love (maybe consider just deleting these -- rex
 # nuke dangling reference(s) to %%buildroot, excessive (.la-like) libs
@@ -105,15 +95,13 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
 
-%if 0%{?docs}
 %files doc
 %{_qt5_docdir}/qtscript.qch
 %{_qt5_docdir}/qtscript/
 %{_qt5_docdir}/qtscripttools.qch
 %{_qt5_docdir}/qtscripttools/
-%endif
 
-%if 0%{?docs} && 0%{?_qt5_examplesdir:1}
+%if 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
 %endif
