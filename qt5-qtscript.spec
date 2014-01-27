@@ -11,7 +11,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -49,6 +49,12 @@ BuildArch: noarch
 %description doc
 %{summary}.
 %endif
+
+%package examples
+Summary: Programming examples for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description examples
+%{summary}.
 
 
 %prep
@@ -107,8 +113,16 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtscripttools/
 %endif
 
+%if 0%{?_qt5_examplesdir:1}
+%files examples
+%{_qt5_examplesdir}/
+%endif
+
 
 %changelog
+* Mon Jan 27 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-2
+- -examples subpkg
+
 * Thu Dec 12 2013 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-1
 - 5.2.0
 
