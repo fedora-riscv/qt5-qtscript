@@ -21,9 +21,9 @@ Patch0: qtscript-opensource-src-5.2.0-s390.patch
 BuildRequires: qt5-qtbase-devel >= %{version}
 # -docs, for qhelpgenerator
 BuildRequires: qt5-qttools-devel
-%if 0%{?_qt5_examplesdir:1}
+#if 0%{?_qt5_examplesdir:1}
 BuildRequires: pkgconfig(Qt5UiTools)
-%endif
+#endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
