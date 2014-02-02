@@ -4,7 +4,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -17,6 +17,10 @@ Source0: http://download.qt-project.org/official_releases/qt/5.2/%{version}/subm
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.2.0-s390.patch
+
+## upstream patches
+# https://codereview.qt-project.org/#change,74927
+Patch101: qtscript-opensource-src-5.2.0-aarch64.patch 
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 # -docs, for qhelpgenerator
@@ -54,6 +58,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{qt_module}-opensource-src-%{version}%{?pre:-%{pre}}
 %patch0 -p1 -b .s390
+%patch101 -p1 -b .aarch64
 
 
 %build
@@ -108,6 +113,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Sun Feb 02 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-3
+- Add AArch64 support to qtscript (#1056071)
+
 * Mon Jan 27 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-2
 - -examples subpkg
 - -doc for all archs
