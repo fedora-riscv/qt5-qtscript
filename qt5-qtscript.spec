@@ -1,18 +1,20 @@
 
 %global qt_module qtscript
 
+%define pre beta
+
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.3.2
-Release: 1%{?dist}
+Version: 5.4.0
+Release: 0.1.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url: http://qt-project.org/
 %if 0%{?pre:1}
-Source0: http://download.qt-project.org/development_releases/qt/5.3/%{version}-%{pre}/submodules/%{qt_module}-opensource-src-%{version}-%{pre}.tar.xz
+Source0: http://download.qt-project.org/development_releases/qt/5.4/%{version}-%{pre}/submodules/%{qt_module}-opensource-src-%{version}-%{pre}.tar.xz
 %else
-Source0: http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 %endif
 
 # add s390(x0 support to Platform.h (taken from webkit)
@@ -83,15 +85,20 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %postun -p /sbin/ldconfig
 
 %files
-%doc LGPL_EXCEPTION.txt LICENSE.GPL  LICENSE.LGPL
+%doc LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
 %{_qt5_libdir}/libQt5Script.so.5*
 %{_qt5_libdir}/libQt5ScriptTools.so.5*
 
 %files devel
 %{_qt5_headerdir}/Qt*/
-%{_qt5_libdir}/libQt5*.so
-%{_qt5_libdir}/libQt5*.prl
-%{_qt5_libdir}/cmake/Qt5*/
+%{_qt5_libdir}/libQt5Script.so
+%{_qt5_libdir}/libQt5Script.prl
+%{_qt5_libdir}/libQt5ScriptTools.so
+%{_qt5_libdir}/libQt5ScriptTools.prl
+%dir %{_qt5_libdir}/cmake/Qt5Script/
+%{_qt5_libdir}/cmake/Qt5Script/Qt5ScriptConfig*.cmake
+%dir %{_qt5_libdir}/cmake/Qt5ScriptTools/
+%{_qt5_libdir}/cmake/Qt5ScriptTools/Qt5ScriptToolsConfig*.cmake
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
 
@@ -108,6 +115,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Sun Oct 19 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.1.beta
+- 5.4.0-beta
+
 * Tue Sep 16 2014 Rex Dieter <rdieter@fedoraproject.org> 5.3.2-1
 - 5.3.2
 
