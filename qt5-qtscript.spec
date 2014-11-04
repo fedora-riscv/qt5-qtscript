@@ -1,12 +1,16 @@
 
 %global qt_module qtscript
 
+# define to build docs, need to undef this for bootstrapping
+# where qt5-qttools builds are not yet available
+%define docs 1
+
 %define pre beta
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 0.1.%{pre}%{?dist}
+Release: 0.2.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -21,8 +25,6 @@ Source0: http://download.qt-project.org/official_releases/qt/5.4/%{version}/subm
 Patch0: qtscript-opensource-src-5.2.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-# -docs, for qhelpgenerator
-BuildRequires: qt5-qttools-devel
 #if 0%{?_qt5_examplesdir:1}
 BuildRequires: pkgconfig(Qt5UiTools)
 #endif
@@ -39,12 +41,16 @@ Requires: qt5-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
+%if 0%{?docs}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
+# for qhelpgenerator
+BuildRequires: qt5-qttools-devel
 BuildArch: noarch
 %description doc
 %{summary}.
+%endif
 
 %package examples
 Summary: Programming examples for %{name}
@@ -59,15 +65,24 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%{_qt5_qmake}
+mkdir %{_target_platform}
+pushd %{_target_platform}
+%{qmake_qt5} ..
 
+make %{?_smp_mflags}
+
+%if 0%{?docs}
 make %{?_smp_mflags} docs
+%endif
+popd
 
 
 %install
-make install INSTALL_ROOT=%{buildroot}
+make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 
-make install_docs INSTALL_ROOT=%{buildroot}
+%if 0%{?docs}
+make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+%endif
 
 ## .prl file love (maybe consider just deleting these -- rex
 # nuke dangling reference(s) to %%buildroot, excessive (.la-like) libs
@@ -102,11 +117,13 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
 
+%if 0%{?docs}
 %files doc
 %{_qt5_docdir}/qtscript.qch
 %{_qt5_docdir}/qtscript/
 %{_qt5_docdir}/qtscripttools.qch
 %{_qt5_docdir}/qtscripttools/
+%endif
 
 %if 0%{?_qt5_examplesdir:1}
 %files examples
@@ -115,6 +132,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Mon Nov 03 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.2.beta
+- out-of-tree build, use %%qmake_qt5, support %%docs macro
+
 * Sun Oct 19 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.1.beta
 - 5.4.0-beta
 
