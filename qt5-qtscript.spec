@@ -5,12 +5,10 @@
 # where qt5-qttools builds are not yet available
 %define docs 1
 
-%define pre rc
-
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 0.3.%{pre}%{?dist}
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -132,6 +130,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Dec 10 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-1
+- 5.4.0 (final)
+
 * Fri Nov 28 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.3.rc
 - 5.4.0-rc
 
