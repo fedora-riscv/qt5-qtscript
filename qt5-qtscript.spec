@@ -7,8 +7,8 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.4.0
-Release: 2%{?dist}
+Version: 5.4.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -130,6 +130,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Tue Feb 24 2015 Jan Grulich <jgrulich@redhat.com> 5.4.1-1
+- 5.4.1
+
 * Mon Feb 16 2015 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-2
 - rebuild (gcc5)
 
