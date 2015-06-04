@@ -98,7 +98,7 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %postun -p /sbin/ldconfig
 
 %files
-%doc LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
+%doc LGPL_EXCEPTION.txt LICENSE.LGPL*
 %{_qt5_libdir}/libQt5Script.so.5*
 %{_qt5_libdir}/libQt5ScriptTools.so.5*
 
