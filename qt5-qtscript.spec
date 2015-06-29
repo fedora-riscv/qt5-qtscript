@@ -7,25 +7,21 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.4.2
-Release: 2%{?dist}
+Version: 5.5.0
+Release: 0.2.rc%{?dist}
+
+%define prerelease rc
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
-Url: http://qt-project.org/
-%if 0%{?pre:1}
-Source0: http://download.qt-project.org/development_releases/qt/5.4/%{version}-%{pre}/submodules/%{qt_module}-opensource-src-%{version}-%{pre}.tar.xz
-%else
-Source0: http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
-%endif
+Url:     http://www.qt.io
+Source0: http://download.qt.io/development_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.2.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-#if 0%{?_qt5_examplesdir:1}
 BuildRequires: pkgconfig(Qt5UiTools)
-#endif
 
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -58,7 +54,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}%{?pre:-%{pre}}
+%setup -q -n %{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}
+
 %patch0 -p1 -b .s390
 
 
@@ -73,7 +70,6 @@ make %{?_smp_mflags}
 make %{?_smp_mflags} docs
 %endif
 popd
-
 
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
@@ -92,7 +88,6 @@ sed -i \
 ## unpackaged files
 # .la files, die, die, die.
 rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
-
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -130,8 +125,11 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+* Thu Jun 25 2015 Helio Chissini de Castro <helio@kde.org> - 5.5.0-0.2.rc
+- Update for official RC1 released packages
+
+* Wed Jun 17 2015 Daniel Vrátil <dvratil@redhat.com> - 5.5.0-0.1.rc
+- Qt 5.5.0 RC1
 
 * Thu Jun 04 2015 Jan Grulich <jgrulich@redhat.com> - 5.4.2-1
 - 5.4.2
