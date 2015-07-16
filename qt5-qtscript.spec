@@ -18,7 +18,7 @@ Url:     http://www.qt.io
 Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
-Patch0: qtscript-opensource-src-5.2.0-s390.patch
+Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5UiTools)
