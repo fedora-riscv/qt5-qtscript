@@ -5,12 +5,12 @@
 # where qt5-qttools builds are not yet available
 %define docs 1
 
+#define prerelease rc
+
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.5.0
-Release: 1%{?dist}
-
-#define prerelease rc
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -23,7 +23,7 @@ Patch0: qtscript-opensource-src-5.5.0-s390.patch
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5UiTools)
 
-%{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
 %{summary}.
@@ -71,6 +71,7 @@ make %{?_smp_mflags} docs
 %endif
 popd
 
+
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 
@@ -88,6 +89,7 @@ sed -i \
 ## unpackaged files
 # .la files, die, die, die.
 rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
+
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -125,6 +127,12 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Thu Jul 16 2015 Rex Dieter <rdieter@fedoraproject.org> 5.5.0-2
+- tighten qtbase dep (#1233829), .spec cosmetics
+
+* Wed Jul 1 2015 Helio Chissini de Castro <helio@kde.org> 5.5.0-1
+- New final upstream release Qt 5.5.0
+
 * Thu Jun 25 2015 Helio Chissini de Castro <helio@kde.org> - 5.5.0-0.2.rc
 - Update for official RC1 released packages
 
