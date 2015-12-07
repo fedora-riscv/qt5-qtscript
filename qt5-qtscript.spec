@@ -1,14 +1,23 @@
 
 %global qt_module qtscript
 
+# define to build docs, need to undef this for bootstrapping
+# where qt5-qttools builds are not yet available
+# only primary archs (for now), allow secondary to bootstrap
+#global bootstrap 1
+
+%if ! 0%{?bootstrap}
+%ifarch %{arm} %{ix86} x86_64
 %define docs 1
+%endif
+%endif
 
 %define prerelease beta1
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 0.1%{?dist}
+Release: 0.2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -19,7 +28,6 @@ Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: qt5-qdoc
 BuildRequires: pkgconfig(Qt5UiTools)
 
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
@@ -38,6 +46,7 @@ Requires: qt5-qtbase-devel%{?_isa}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
+BuildRequires: qt5-qdoc
 BuildRequires: qt5-qhelpgenerator
 BuildArch: noarch
 %description doc
@@ -125,6 +134,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Mon Dec 07 2015 Rex Dieter <rdieter@fedoraproject.org> 5.6.0-0.2
+- (re)add bootstrap macro support
+
 * Tue Nov 03 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.1
 - Start to implement 5.6.0 beta
 
