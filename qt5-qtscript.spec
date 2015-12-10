@@ -8,7 +8,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 0.2%{?dist}
+Release: 0.3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -38,6 +38,7 @@ Requires: qt5-qtbase-devel%{?_isa}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
+BuildRequires: qt5-qdoc
 BuildRequires: qt5-qhelpgenerator
 BuildArch: noarch
 %description doc
@@ -125,8 +126,11 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
-* Thu Dec 10 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.2
+* Thu Dec 10 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.3
 - Official beta release
+
+* Mon Dec 07 2015 Rex Dieter <rdieter@fedoraproject.org> 5.6.0-0.2
+- (re)add bootstrap macro support
 
 * Tue Nov 03 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.1
 - Start to implement 5.6.0 beta
