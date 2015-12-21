@@ -8,7 +8,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 0.3%{?dist}
+Release: 0.4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -126,6 +126,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Mon Dec 21 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.4
+- Update to final beta release
+
 * Thu Dec 10 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.3
 - Official beta release
 
