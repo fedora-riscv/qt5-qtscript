@@ -7,8 +7,8 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.6.0
-Release: 4%{?prerelease:.%{prerelease}}%{?dist}
+Version: 5.6.1
+Release: 1%{?prerelease:.%{prerelease}}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -128,6 +128,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Thu Jun 09 2016 Jan Grulich <jgrulich@redhat.com> - 5.6.1-1
+- Update to 5.6.1
+
 * Sun Apr 17 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.0-4
 - BR: qt5-qtbase-private-devel, -devel: Provides: private-devel
 
