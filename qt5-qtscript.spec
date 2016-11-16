@@ -3,17 +3,15 @@
 
 %define docs 1
 
-#define prerelease
-
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.6.1
-Release: 1%{?prerelease:.%{prerelease}}%{?dist}
+Version: 5.6.2
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/snapshots/qt/5.6/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.6/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -128,6 +126,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Nov 02 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.2-1
+- 5.6.2
+
 * Thu Jun 09 2016 Jan Grulich <jgrulich@redhat.com> - 5.6.1-1
 - Update to 5.6.1
 
