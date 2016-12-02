@@ -3,17 +3,15 @@
 
 %define docs 1
 
-#define prerelease rc
-
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.7.0
-Release: 2%{?dist}
+Version: 5.7.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.7/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -21,7 +19,7 @@ Patch0: qtscript-opensource-src-5.5.0-s390.patch
 BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: qt5-qtbase-private-devel
-BuildRequires: pkgconfig(Qt5UiTools)
+BuildRequires: pkgconfig(Qt5UiTools) >= %{version}
 
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
@@ -55,7 +53,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}
+%setup -q -n %{qt_module}-opensource-src-%{version}
 
 %patch0 -p1 -b .s390
 
@@ -128,6 +126,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Nov 09 2016 Helio Chissini de Castro <helio@kde.org> - 5.7.1-1
+- New upstream version
+
 * Mon Jul 04 2016 Helio Chissini de Castro <helio@kde.org> - 5.7.0-2
 - Compiled with gcc
 
