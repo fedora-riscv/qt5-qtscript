@@ -6,7 +6,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -16,10 +16,11 @@ Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
-BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: qt5-qtbase-private-devel
-BuildRequires: pkgconfig(Qt5UiTools) >= %{version}
+BuildRequires: qt5-qttools-static >= %{version}
+# aka ^^
+BuildRequires: pkgconfig(Qt5UiTools)
 
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
@@ -126,6 +127,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Sat Dec 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.7.1-2
+- 5.7.1 dec5 snapshot
+
 * Wed Nov 09 2016 Helio Chissini de Castro <helio@kde.org> - 5.7.1-1
 - New upstream version
 
