@@ -20,7 +20,6 @@ Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5UiTools)
-
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
@@ -41,6 +40,7 @@ Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
 BuildRequires: qt5-doctools
 BuildRequires: qt5-qtbase-doc
+Requires: qt5-qtbase-doc
 BuildArch: noarch
 %description doc
 %{summary}.
