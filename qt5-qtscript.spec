@@ -6,7 +6,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -127,6 +127,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Dec 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.7.1-2
 - 5.7.1 dec5 snapshot
 
