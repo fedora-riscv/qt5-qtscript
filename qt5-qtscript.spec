@@ -1,27 +1,27 @@
-
 %global qt_module qtscript
 
-%define docs 1
+# To build without qttools doctools package, just undefine docs
+%ifarch %{arm} %{ix86} x86_64
+%global docs 1
+%endif
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.7.1
-Release: 3%{?dist}
+Version: 5.8.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: qt5-qtbase-private-devel
-BuildRequires: qt5-qttools-static >= %{version}
-# aka ^^
 BuildRequires: pkgconfig(Qt5UiTools)
 
+BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
@@ -39,8 +39,8 @@ Requires: qt5-qtbase-devel%{?_isa}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
+BuildRequires: qt5-doctools
+BuildRequires: qt5-qtbase-doc
 BuildArch: noarch
 %description doc
 %{summary}.
@@ -118,17 +118,15 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtscript/
 %{_qt5_docdir}/qtscripttools.qch
 %{_qt5_docdir}/qtscripttools/
-%endif
 
-%if 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
 %endif
 
 
 %changelog
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+* Mon Jan 30 2017 Helio Chissini de Castro <helio@kde.org> - 5.8.0-1
+- new upstream version
 
 * Sat Dec 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.7.1-2
 - 5.7.1 dec5 snapshot
