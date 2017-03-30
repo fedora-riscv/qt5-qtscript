@@ -118,10 +118,10 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtscript/
 %{_qt5_docdir}/qtscripttools.qch
 %{_qt5_docdir}/qtscripttools/
+%endif
 
 %files examples
 %{_qt5_examplesdir}/
-%endif
 
 
 %changelog
