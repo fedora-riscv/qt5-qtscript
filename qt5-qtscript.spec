@@ -1,17 +1,14 @@
 %global qt_module qtscript
 
-# To build without qttools doctools package, just undefine docs
-%global docs 1
-
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.8.0
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 0.beta.3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/submodules/%{qt_module}-opensource-src-%{version}-beta3.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -32,18 +29,6 @@ Requires: qt5-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildRequires: qt5-doctools
-BuildRequires: qt5-qtbase-doc
-Requires: qt5-qtbase-doc
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
-
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -52,7 +37,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}
+%setup -q -n %{qt_module}-opensource-src-%{version}-beta3
 
 %patch0 -p1 -b .s390
 
@@ -64,18 +49,11 @@ pushd %{_target_platform}
 
 make %{?_smp_mflags}
 
-%if 0%{?docs}
-make %{?_smp_mflags} docs
-%endif
 popd
 
 
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-
-%if 0%{?docs}
-make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-%endif
 
 ## .prl file love (maybe consider just deleting these -- rex
 # nuke dangling reference(s) to %%buildroot, excessive (.la-like) libs
@@ -110,19 +88,14 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_libdir}/pkgconfig/Qt5*.pc
 %{_qt5_archdatadir}/mkspecs/modules/*.pri
 
-%if 0%{?docs}
-%files doc
-%{_qt5_docdir}/qtscript.qch
-%{_qt5_docdir}/qtscript/
-%{_qt5_docdir}/qtscripttools.qch
-%{_qt5_docdir}/qtscripttools/
-%endif
-
 %files examples
 %{_qt5_examplesdir}/
 
 
 %changelog
+* Tue May 09 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.beta.3
+- Upstream beta 3
+
 * Mon Apr 03 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.8.0-2
 - build docs on all archs
 
