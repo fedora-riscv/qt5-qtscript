@@ -3,12 +3,12 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.9.0
-Release: 0.beta.3%{?dist}
+Release: 0.1.rc%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/submodules/%{qt_module}-opensource-src-%{version}-beta3.tar.xz
+Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-rc/submodules/%{qt_module}-opensource-src-%{version}-rc.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -37,7 +37,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}-beta3
+%setup -q -n %{qt_module}-opensource-src-%{version}-rc
 
 %patch0 -p1 -b .s390
 
@@ -93,6 +93,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Fri May 26 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.1.rc
+- Upstream Release Candidate retagged
+
 * Tue May 09 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.beta.3
 - Upstream beta 3
 
