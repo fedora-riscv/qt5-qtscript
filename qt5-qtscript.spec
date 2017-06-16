@@ -3,7 +3,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -43,17 +43,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{qmake_qt5} ..
+%{qmake_qt5}
 
 make %{?_smp_mflags}
 
-popd
-
 
 %install
-make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+make install INSTALL_ROOT=%{buildroot}
 
 ## .prl file love (maybe consider just deleting these -- rex
 # nuke dangling reference(s) to %%buildroot, excessive (.la-like) libs
@@ -93,6 +89,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Fri Jun 16 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.0-2
+- drop shadow/out-of-tree builds (#1456211,QTBUG-37417)
+
 * Wed May 31 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-1
 - Upstream official release
 
