@@ -2,13 +2,13 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.9.0
-Release: 2%{?dist}
+Version: 5.9.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/official_releases/qt/5.9/5.9.0/submodules/qtscript-opensource-src-5.9.0.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -89,6 +89,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Wed Jul 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.1-1
+- 5.9.1
+
 * Fri Jun 16 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.0-2
 - drop shadow/out-of-tree builds (#1456211,QTBUG-37417)
 
