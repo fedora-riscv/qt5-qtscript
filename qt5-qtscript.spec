@@ -2,7 +2,7 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.9.2
+Version: 5.9.3
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -89,6 +89,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Thu Nov 23 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.3-1
+- 5.9.3
+
 * Mon Oct 09 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.2-1
 - 5.9.2
 
