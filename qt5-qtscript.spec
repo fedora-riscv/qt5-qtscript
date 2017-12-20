@@ -2,13 +2,13 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.9.3
+Version: 5.10.0
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.10/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
@@ -37,7 +37,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}
+%setup -q -n %{qt_module}-everywhere-src-%{version}
 
 %patch0 -p1 -b .s390
 
@@ -89,6 +89,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Tue Dec 19 2017 Jan Grulich <jgrulich@redhat.com> - 5.10.0-1
+- 5.10.0
+
 * Thu Nov 23 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.3-1
 - 5.9.3
 
