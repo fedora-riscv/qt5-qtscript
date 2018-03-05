@@ -1,9 +1,21 @@
+
+## uncomment to enable bootstrap mode
+#global bootstrap 1
+
+## currently includes no tests
+%if !0%{?bootstrap}
+# skip slower archs for now
+%ifnarch %{arm}
+%global tests 1
+%endif
+%endif
+
 %global qt_module qtscript
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.10.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -14,10 +26,21 @@ Source0: https://download.qt.io/official_releases/qt/5.10/%{version}/submodules/
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
 BuildRequires: gcc-c++
-BuildRequires: pkgconfig(Qt5UiTools)
-BuildRequires: qt5-qtbase-devel >= %{version}
+BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
+
+%if ! 0%{?bootstrap}
+# extra examples
+BuildRequires: pkgconfig(Qt5UiTools)
+%endif
+
+%if 0%{?tests}
+BuildRequires: dbus-x11
+BuildRequires: mesa-dri-drivers
+BuildRequires: time
+BuildRequires: xorg-x11-server-Xvfb
+%endif
 
 %description
 %{summary}.
@@ -44,9 +67,16 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%{qmake_qt5}
+# workaround serious failures when building with f28's gcc8
+# https://bugzilla.redhat.com/show_bug.cgi?id=1551246
+%if 0%{?fedora} > 27
+export CXXFLAGS="$RPM_OPT_FLAGS -O1"
+%endif
+
+%qmake_qt5
 
 %make_build
+
 
 %install
 %make_install INSTALL_ROOT=%{buildroot}
@@ -61,6 +91,19 @@ sed -i \
 ## unpackaged files
 # .la files, die, die, die.
 rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
+
+
+%check
+%if 0%{?tests}
+export CTEST_OUTPUT_ON_FAILURE=1
+export PATH=%{buildroot}%{_qt5_bindir}:$PATH
+export LD_LIBRARY_PATH=%{buildroot}%{_qt5_libdir}
+## do in %%build ?
+%make_build -k sub-tests-all ||:
+xvfb-run -a \
+time \
+%make_build check -k -C tests ||:
+%endif
 
 
 %ldconfig_scriptlets
@@ -88,6 +131,10 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
 %changelog
+* Mon Mar 05 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-3
+- support %%bootstrap, %%check: add autotests
+- build with -O1 to workaround serious autotest/code failures (f28+, #1551246)
+
 * Mon Mar 05 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-2
 - BR: gcc-c++, use %%make_build %%make_install %%ldconfig_scriptlets 
 
