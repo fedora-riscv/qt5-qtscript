@@ -13,8 +13,9 @@ Source0: https://download.qt.io/official_releases/qt/5.10/%{version}/submodules/
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch0: qtscript-opensource-src-5.5.0-s390.patch
 
-BuildRequires: qt5-qtbase-devel >= %{version}
+BuildRequires: gcc-c++
 BuildRequires: pkgconfig(Qt5UiTools)
+BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
@@ -45,11 +46,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %build
 %{qmake_qt5}
 
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install INSTALL_ROOT=%{buildroot}
+%make_install INSTALL_ROOT=%{buildroot}
 
 ## .prl file love (maybe consider just deleting these -- rex
 # nuke dangling reference(s) to %%buildroot, excessive (.la-like) libs
@@ -63,8 +63,7 @@ sed -i \
 rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
 %license LICENSE.LGPL*
@@ -90,7 +89,7 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 
 %changelog
 * Mon Mar 05 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-2
-- rebuild
+- BR: gcc-c++, use %%make_build %%make_install %%ldconfig_scriptlets 
 
 * Wed Feb 14 2018 Jan Grulich <jgrulich@redhat.com> - 5.10.1-1
 - 5.10.1
