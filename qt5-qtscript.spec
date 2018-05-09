@@ -15,7 +15,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.10.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -100,9 +100,14 @@ export PATH=%{buildroot}%{_qt5_bindir}:$PATH
 export LD_LIBRARY_PATH=%{buildroot}%{_qt5_libdir}
 ## do in %%build ?
 %make_build -k sub-tests-all ||:
+timeout 180 \
 xvfb-run -a \
 time \
 %make_build check -k -C tests ||:
+if [ "$?" -eq "124" ]; then
+echo 'make check timeout reached!'
+exit 1
+fi
 %endif
 
 
@@ -131,6 +136,9 @@ time \
 
 
 %changelog
+* Wed May 09 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-4
+- %%check: use 'timeout 180' to avoid hanging tests
+
 * Mon Mar 05 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-3
 - support %%bootstrap, %%check: add autotests
 - build with -O1 to workaround serious autotest/code failures (f28+, #1551246)
