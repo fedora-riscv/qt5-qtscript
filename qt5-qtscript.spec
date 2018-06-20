@@ -14,7 +14,7 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.11.0
+Version: 5.11.1
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -137,6 +137,9 @@ fi
 
 
 %changelog
+* Tue Jun 19 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.11.1-1
+- 5.11.1
+
 * Sat May 26 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.11.0-1
 - 5.11.0
 
