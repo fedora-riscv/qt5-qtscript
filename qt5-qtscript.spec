@@ -24,7 +24,7 @@ Url:     http://www.qt.io
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
 # add s390(x0 support to Platform.h (taken from webkit)
-Patch0: qtscript-opensource-src-5.5.0-s390.patch
+Patch0: qtscript-everywhere-src-5.12.1-s390.patch 
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
