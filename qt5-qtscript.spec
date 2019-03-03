@@ -23,8 +23,12 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
+## upstream patches
+Patch2: 0002-Fix-build-with-GCC-8.3.patch
+
+## downstream patches
 # add s390(x0 support to Platform.h (taken from webkit)
-Patch0: qtscript-everywhere-src-5.12.1-s390.patch 
+Patch100: qtscript-everywhere-src-5.12.1-s390.patch
 
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
@@ -62,9 +66,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-everywhere-src-%{version}
+%autosetup -n %{qt_module}-everywhere-src-%{version} -p1
 
-%patch0 -p1 -b .s390
+#patch100 -p1 -b .s390
 
 
 %build
