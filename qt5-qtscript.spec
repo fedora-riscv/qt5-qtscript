@@ -15,7 +15,7 @@
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
 Version: 5.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -74,7 +74,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %build
 # workaround serious failures when building with f28's gcc8
 # https://bugzilla.redhat.com/show_bug.cgi?id=1551246
-%if 0%{?fedora} > 27
+#if 0%{?fedora} > 27
+%if 0
 export CXXFLAGS="$RPM_OPT_FLAGS -O1"
 %endif
 
@@ -141,6 +142,9 @@ fi
 
 
 %changelog
+* Wed May 22 2019 Rex Dieter <rdieter@fedoraproject.org> - 5.12.1-2
+- drop gcc8 workaround (#1550245)
+
 * Fri Feb 15 2019 Rex Dieter <rdieter@fedoraproject.org> - 5.12.1-1
 - 5.12.1
 
