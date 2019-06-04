@@ -14,8 +14,8 @@
 
 Summary: Qt5 - QtScript component
 Name:    qt5-%{qt_module}
-Version: 5.12.1
-Release: 2%{?dist}
+Version: 5.12.3
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -142,6 +142,9 @@ fi
 
 
 %changelog
+* Tue Jun 04 2019 Jan Grulich <jgrulich@redhat.com> - 5.12.3-1
+- 5.12.3
+
 * Wed May 22 2019 Rex Dieter <rdieter@fedoraproject.org> - 5.12.1-2
 - drop gcc8 workaround (#1550245)
 
