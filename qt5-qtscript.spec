@@ -24,7 +24,6 @@ Url:     http://www.qt.io
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
 ## upstream patches
-Patch2: 0002-Fix-build-with-GCC-8.3.patch
 
 ## downstream patches
 # add s390(x0 support to Platform.h (taken from webkit)
