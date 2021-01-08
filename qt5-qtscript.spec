@@ -29,6 +29,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 # add s390(x0 support to Platform.h (taken from webkit)
 Patch100: qtscript-everywhere-src-5.12.1-s390.patch
 
+BuildRequires: make
 BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtbase-private-devel
